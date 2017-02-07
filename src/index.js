@@ -59,17 +59,17 @@ function returnCounter(n = 0) {
  Функция должна принимать другую функцию (F) и некоторое количество дополнительных аргументов
  Функция должна привязать переданные аргументы к функции F и вернуть получившуюся функцию
  */
-function bindFunction() {
-    var arg = [];
+function bindFunction(fn) {
+    let args = [];
 
-    for (var i = 0; i<arguments.length; i++) {
-        arg.push(arguments[i]);
+    for (let i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] === 'number') {
+            args.push(arguments[i]);
+        }
     }
-    var r = arg[0].bind(arg[1], arg[2]);
 
-    return r;
+    return fn.bind(null, args[0], args[1]);
 }
-
 export {
     returnFirstArgument,
     defaultParameterValue,

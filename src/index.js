@@ -11,7 +11,7 @@
  */
 function isAllTrue(array, fn) {
 
-    if(typeof(fn) !== 'function' ){
+    if(typeof fn !== 'function' ){
        throw Error("fn is not a function");
     }else if (!array.length || !Array.isArray(array)){
         throw Error("empty array")
@@ -34,7 +34,7 @@ function isAllTrue(array, fn) {
  */
 function isSomeTrue(array, fn) {
 
-    if(typeof(fn) !== 'function' ){
+    if(typeof fn !== 'function' ){
         throw Error("fn is not a function");
     }else if (!array.length || !Array.isArray(array)){
         throw Error("empty array")
@@ -57,6 +57,7 @@ function isSomeTrue(array, fn) {
  */
 function returnBadArguments(fn) {
     var result = [];
+
     if(typeof fn !== 'function'){
         throw Error("fn is not a function");
     }
@@ -64,18 +65,12 @@ function returnBadArguments(fn) {
 
     for(let i = 1; i < arguments.length; i++){
 
-        fn(arguments[i]);
-
-        if(fn(arguments[i]) == false){
-            result =  fn(arguments[i]);
-        }
-
-        try{
+        try {
             fn(arguments[i]);
-        } catch (e){
-            result =  fn(arguments[i]);
         }
-
+        catch(err) {
+            result.push(arguments[i])
+        }
     }
 
     return result;
@@ -89,7 +84,7 @@ function returnBadArguments(fn) {
 function findError(data1, data2) {
     return (function() {
         for (var i = 0; i < data1.length; i++) {
-            if (data1[i] !== data2[i]) {
+            if (data1[i] != data2[i] & !isNaN(data1[i]) & !isNaN(data2[i])) {
                 return false;
             }
         }

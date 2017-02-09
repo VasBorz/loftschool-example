@@ -11,14 +11,15 @@
  */
 function isAllTrue(array, fn) {
 
-    if(typeof fn !== 'function' ){
-       throw Error("fn is not a function");
-    }else if (!array.length || !Array.isArray(array)){
-        throw Error("empty array")
-    }else {
-        for(let i = 0; i < array.length; i++){
+    if (typeof fn !== 'function') {
+        throw Error('fn is not a function');
+    } else if (!array.length || !Array.isArray(array)) {
+        throw Error('empty array');
+    } else {
+        for (let i = 0; i < array.length; i++) {
             fn(array[i]);
         }
+
         return true;
     }
 }
@@ -34,14 +35,14 @@ function isAllTrue(array, fn) {
  */
 function isSomeTrue(array, fn) {
 
-    if(typeof fn !== 'function' ){
-        throw Error("fn is not a function");
-    }else if (!array.length || !Array.isArray(array)){
-        throw Error("empty array")
-    }else {
-        for(let i = 0; i < array.length; i++){
-            if(fn(array[i]) === true){
-            return true;
+    if (typeof fn !== 'function' ) {
+        throw Error('fn is not a function');
+    } else if (!array.length || !Array.isArray(array)) {
+        throw Error('empty array');
+    } else {
+        for (let i = 0; i < array.length; i++) {
+            if (fn(array[i]) === true) {
+                return true;
             }
         }
     }
@@ -58,17 +59,15 @@ function isSomeTrue(array, fn) {
 function returnBadArguments(fn) {
     var result = [];
 
-    if(typeof fn !== 'function'){
-        throw Error("fn is not a function");
+    if (typeof fn !== 'function') {
+        throw Error('fn is not a function');
     }
 
-
-    for(let i = 1; i < arguments.length; i++){
+    for (let i = 1; i < arguments.length; i++) {
 
         try {
             fn(arguments[i]);
-        }
-        catch(err) {
+        } catch (err) {
             result.push(arguments[i])
         }
     }
@@ -109,44 +108,52 @@ function findError(data1, data2) {
  */
 function calculator(number = 0) {
 
-    if(typeof number !== 'number'){
-        throw Error('number is not a number');
+    if (typeof number !== 'number') {
+        throw Error('number is not  number');
     }
 
-    return  {
+    return {
 
         sum: function () {
             let result = 0;
-            for(let i = 0; i < arguments.length; i++){
+
+            for (let i = 0; i < arguments.length; i++) {
                 result += arguments[i];
             }
+
             return result;
 
         },
-        div: function (){
+        div: function () {
             let result = 0;
-            for(let i = 0; i < arguments.length; i++){
-                if(arguments[i] == 0){
+
+            for (let i = 0; i < arguments.length; i++) {
+                if (arguments[i] == 0) {
                     throw Error('division by 0');
                 }
                 result = number / arguments[i];
             }
+
             return result;
 
         },
         mul: function () {
             let result = 0;
-            for(let i = 0; i < arguments.length; i++){
-              result = number * arguments[i];
+
+            for (let i = 0; i < arguments.length; i++) {
+                result = number * arguments[i];
             }
+
             return result;
 
         },
         dif: function () {
             let result = [];
-            for(let i = 0; i < arguments.length; i++){
+
+            for (let i = 0; i < arguments.length; i++) {
                 result.push(arguments[i])
             }
+
             return result;
 
         }

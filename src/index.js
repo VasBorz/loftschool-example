@@ -107,7 +107,51 @@ function findError(data1, data2) {
  - number не является числом (с текстом "number is not a number")
  - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator(number) {
+function calculator(number = 0) {
+
+    if(typeof number !== 'number'){
+        throw Error('number is not a number');
+    }
+
+    return  {
+
+        sum: function () {
+            let result = 0;
+            for(let i = 0; i < arguments.length; i++){
+                result += arguments[i];
+            }
+            return result;
+
+        },
+        div: function (){
+            let result = 0;
+            for(let i = 0; i < arguments.length; i++){
+                if(arguments[i] == 0){
+                    throw Error('division by 0');
+                }
+                result = number / arguments[i];
+            }
+            return result;
+
+        },
+        mul: function () {
+            let result = 0;
+            for(let i = 0; i < arguments.length; i++){
+              result = number * arguments[i];
+            }
+            return result;
+
+        },
+        dif: function () {
+            let result = [];
+            for(let i = 0; i < arguments.length; i++){
+                result.push(arguments[i])
+            }
+            return result;
+
+        }
+
+    }
 }
 
 export {

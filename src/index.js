@@ -5,13 +5,24 @@
  Напишите аналог встроенного метода forEach для работы с массивами
  */
 function forEach(array, fn) {
-}
 
+    for (var i = 0; i < array.length; i++) {
+        fn(array[i], [i], array);
+    }
+}
 /*
  Задача 2:
  Напишите аналог встроенного метода map для работы с массивами
  */
 function map(array, fn) {
+    var arr = [];
+
+    for (var i = 0; i < array.length; i++) {
+       arr.push(fn(array[i], [i], array));
+    }
+    return arr;
+
+
 }
 
 /*
@@ -19,6 +30,12 @@ function map(array, fn) {
  Напишите аналог встроенного метода reduce для работы с массивами
  */
 function reduce(array, fn, initial) {
+
+    for (var i = 0; i < array.length; i++) {
+        initial = array[i];
+        fn(initial, array[i], [i], array);
+    }
+
 }
 
 /*
@@ -27,6 +44,8 @@ function reduce(array, fn, initial) {
  Функция должна удалить указанное свойство из указанного объекта
  */
 function deleteProperty(obj, prop) {
+
+    return delete obj[prop];
 }
 
 /*
@@ -35,6 +54,7 @@ function deleteProperty(obj, prop) {
  Функция должна проверить существует ли укзаанное свойство в указанном объекте
  */
 function hasProperty(obj, prop) {
+    return obj.hasOwnProperty(prop);
 }
 
 /*
@@ -42,6 +62,8 @@ function hasProperty(obj, prop) {
  Функция должна получить все перечисляемые свойства объекта и вернуть их в виде массива
  */
 function getEnumProps(obj) {
+
+    return Object.keys(obj);
 }
 
 /*
@@ -49,6 +71,18 @@ function getEnumProps(obj) {
  Функция должна перебрать все свойства объекта, преобразовать их имена в верхний регистра и вернуть в виде массива
  */
 function upperProps(obj) {
+
+    let arr = [],
+        toUpper = function(x){
+            return x.toUpperCase();
+        };
+
+    arr = Object.keys(obj);
+    arr = arr.map(toUpper);
+
+    return arr;
+
+
 }
 
 /*

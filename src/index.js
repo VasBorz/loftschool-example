@@ -29,12 +29,23 @@ function map(array, fn) {
  Задача 3:
  Напишите аналог встроенного метода reduce для работы с массивами
  */
-function reduce(array, fn, initial) {
 
-    for (var i = 0; i < array.length; i++) {
-        initial = array[i];
-        fn(initial, array[i], [i], array);
+function reduce(array, fn, initial) {
+    var result = initial,
+        counter = 0;
+
+    if(arguments.length  <  3){
+        result = array[0];
+        counter = 1;
     }
+
+    for (var i = counter; i < array.length; i++) {
+
+
+            result = fn(result, array[i], [i], array);
+
+}
+    return result;
 
 }
 

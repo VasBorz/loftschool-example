@@ -18,10 +18,10 @@ function map(array, fn) {
     var arr = [];
 
     for (var i = 0; i < array.length; i++) {
-       arr.push(fn(array[i], [i], array));
+        arr.push(fn(array[i], [i], array));
     }
-    return arr;
 
+    return arr;
 
 }
 
@@ -34,17 +34,17 @@ function reduce(array, fn, initial) {
     var result = initial,
         counter = 0;
 
-    if(arguments.length  <  3){
+    if (arguments.length < 3) {
         result = array[0];
         counter = 1;
     }
 
     for (var i = counter; i < array.length; i++) {
 
+        result = fn(result, array[i], [i], array);
 
-            result = fn(result, array[i], [i], array);
+    }
 
-}
     return result;
 
 }
@@ -84,7 +84,7 @@ function getEnumProps(obj) {
 function upperProps(obj) {
 
     let arr = [],
-        toUpper = function(x){
+        toUpper = function(x) {
             return x.toUpperCase();
         };
 
@@ -92,7 +92,6 @@ function upperProps(obj) {
     arr = arr.map(toUpper);
 
     return arr;
-
 
 }
 

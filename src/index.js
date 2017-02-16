@@ -6,6 +6,7 @@
  * @param {string} text - текст, который необходимо поместить в div
  * @return {Element}
  */
+
 function createDivWithText(text) {
     var el = document.createElement('div');
 
@@ -14,12 +15,13 @@ function createDivWithText(text) {
     return el;
 }
 
-/**'
+/**
  * Функция должна создать элемент с тегом A, установить значение для атрибута href и вернуть получившийся элемент
  *
  * @param {string} hrefValue - значение для атрибута href
  * @return {Element}
  */
+
 function createAWithHref(hrefValue) {
     var a = document.createElement('a');
 
@@ -27,15 +29,17 @@ function createAWithHref(hrefValue) {
 
     return a;
 }
-/**'
+
+/**
  * Функция должна вставлять элемент what в начало элемента where
  *
  * @param {Element} what - что вставлять
  * @param {Element} where - куда вставлять
- */''
+ */
+
 function prepend(what, where) {
-    var el = document.createElement(where);
-    el.insertBefore(where, what);
+
+    where.insertBefore(what, where.childNodes[0]);
 
 }
 
@@ -54,6 +58,19 @@ function prepend(what, where) {
  * т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
+
+    var r = [];
+
+    for (var b of where.children) {
+
+        if (b.tagName == 'P') {
+            r.push(b.previousSibling);
+        }
+
+    }
+
+    return r;
+
 }
 
 /**
@@ -89,8 +106,8 @@ function findError(where) {
  */
 function deleteTextNodes(where) {
 
-    for(var a of [...where.childNodes] ){
-        if(a.nodeType !== 1){
+    for (var a of where.childNodes ) {
+        if (a.nodeType !== 1) {
             where.removeChild(a);
         }
     }
@@ -107,12 +124,16 @@ function deleteTextNodes(where) {
  * должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
 function deleteTextNodesRecursive(where) {
-    function del() {
 
-        for(var a of [...where.childNodes] ){
-            if(a.nodeType !== 1){
-                where.removeChild(a);
-            }
+    for (var i = 0; i < where.childNodes.length; i++) {
+        var child = where.childNodes[i];
+
+        if (child.nodeType == 3) {
+            where.removeChild(child);
+            i --;
+
+        } else if (child.nodeType == 1) {
+            deleteTextNodesRecursive(child);
         }
     }
 

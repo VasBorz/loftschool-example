@@ -9,7 +9,7 @@
  */
 function addListener(eventName, target, fn) {
 
-target.addEventListener(eventName, fn);
+    target.addEventListener(eventName, fn);
 
 }
 
@@ -43,7 +43,13 @@ function skipDefault(eventName, target) {
  */
 function emulateClick(target) {
 
+    var event = new MouseEvent('click', {
+        'view': window,
+        'bubbles': true,
+        'cancelable': true
+    });
 
+    target.dispatchEvent(event);
 }
 
 /**
@@ -56,13 +62,13 @@ function emulateClick(target) {
 function delegate(target, fn) {
 
     target.addEventListener('click', function (e) {
-        if (e.target.nodeType == 'BUTTON') {
-            e.target.addEventListener('click', fn);
-        }else{ e.preventDefault()
-        }
-    });
-}
 
+        if (e.target.nodeName == 'BUTTON') {
+            fn();
+        }
+    })
+
+}
 /**
  * *** Со звездочкой ***
  * Функция должна добавить такой обработчик кликов к элементу target

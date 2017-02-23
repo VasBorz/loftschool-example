@@ -8,14 +8,15 @@
  */
 function delayPromise(seconds) {
 
-    var firstPromice = new Promise(function(resolve, reject) {
+    var firstPromise = new Promise(function(resolve, reject) {
 
         setTimeout(function () {
-        return resolve;
-        },seconds);
+            resolve();
+        }, 1000 || seconds);
     });
 
-    return firstPromice;
+
+    return firstPromise;
 }
 
 /**
@@ -27,6 +28,40 @@ function delayPromise(seconds) {
  */
 function loadAndSortTowns() {
     let url = 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json';
+
+
+    var firstPromise = new Promise(function(resolve, reject) {
+
+        var xhr = new XMLHttpRequest(),
+            obj,
+            result = [];
+
+        function compare(a,b) {
+            if (a.name < b.name)
+                return -1;
+            if (a.name > b.name)
+                return 1;
+            return 0;
+        }
+
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.send();
+        xhr.addEventListener('load', function (e) {
+            obj = xhr.response;
+            for( var i in obj ) {
+                if (obj.hasOwnProperty(i)){
+                    result.push(obj[i]);
+                }
+            }
+            result.sort(compare);
+
+            resolve(result);
+        });
+    });
+
+
+    return firstPromise;
 }
 
 export {

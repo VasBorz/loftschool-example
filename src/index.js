@@ -12,9 +12,8 @@ function delayPromise(seconds) {
 
         setTimeout(function () {
             resolve();
-        }, 1000 || seconds);
+        }, 1000*seconds);
     });
-
 
     return firstPromise;
 }
@@ -29,28 +28,30 @@ function delayPromise(seconds) {
 function loadAndSortTowns() {
     let url = 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json';
 
-
-    var firstPromise = new Promise(function(resolve, reject) {
+    var secondPromise = new Promise(function(resolve, reject) {
 
         var xhr = new XMLHttpRequest(),
             obj,
             result = [];
 
-        function compare(a,b) {
-            if (a.name < b.name)
-                return -1;
-            if (a.name > b.name)
-                return 1;
+        function compare(a, b) {
+            if (a.name < b.name) {
+                return -1
+            }
+            if (a.name > b.name) {
+                return 1
+            }
+
             return 0;
         }
 
         xhr.open('GET', url, true);
         xhr.responseType = 'json';
         xhr.send();
-        xhr.addEventListener('load', function (e) {
+        xhr.addEventListener('load', function() {
             obj = xhr.response;
-            for( var i in obj ) {
-                if (obj.hasOwnProperty(i)){
+            for (var i in obj ) {
+                if (obj.hasOwnProperty(i)) {
                     result.push(obj[i]);
                 }
             }
@@ -60,8 +61,7 @@ function loadAndSortTowns() {
         });
     });
 
-
-    return firstPromise;
+    return secondPromise;
 }
 
 export {

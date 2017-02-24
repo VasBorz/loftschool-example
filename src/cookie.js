@@ -62,11 +62,44 @@ function isMatching(full, chunk) {
  * @param value - значение cookie
  */
 function createCookieTr(name, value) {
+    var th = document.createElement('th');
+    var listCookie = document.cookie
+        .split('; ')
+        .filter(Boolean)
+        .map(cookie => cookie.match(/^([^=]+)=(.+)/))
+        .reduce((obj, [, name, value]) => {
+            obj[name] = value;
+
+            return obj;
+        }, {});
+    if(!name && !value){
+        for (var prop in listCookie) {
+            var a = document.createElement('a');
+            var tr = document.createElement('tr');
+            var linkText = document.createTextNode("my title text");
+            a.appendChild(linkText);
+            a.setAttribute("cookie",`${prop},${listCookie[prop]}`)
+            tr.innerHTML = `<th>${prop}</th><th>${listCookie[prop]}</th><th>${a}</th>`;
+            listTable.appendChild(tr);
+            console.log(a);
+        }
+    }else if (name && value){
+        var tr = document.createElement('tr');
+        tr.innerHTML = `<th>${name}</th><th>${value}</th>`;
+        listTable.appendChild(tr);
+
+    }
 }
 
 filterNameInput.addEventListener('keyup', function() {
+
+    createCookieTr();
+
 });
 
 addButton.addEventListener('click', () => {
+    createCookieTr(addNameInput.value, addValueInput.value);
 });
+
+createCookieTr();
 
